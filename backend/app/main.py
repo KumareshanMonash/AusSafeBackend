@@ -99,7 +99,10 @@ async def get_sun_protection_recommendation(user_input: UserInput, db: Session =
         skin_type=user_input.skin_type,
         activity_level=user_input.activity_level
     )
-    print
+    print(uv_index,
+        user_input.skin_tone,
+        user_input.skin_type,
+        user_input.activity_level)
     print("Recommendation",recommendation)
     if not recommendation:
         raise HTTPException(status_code=404, detail="No suitable sun protection recommendation found")
