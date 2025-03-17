@@ -69,8 +69,8 @@ async def get_weather(location_id: str, db: Session = Depends(get_db)):
 
 
 @app.post("/sun_protection", response_model=SunProtectionRecommendation)
-async def get_sun_protection_recommendation(user_input: UserInput):
-    # Extract location details from the request payload
+async def get_sun_protection_recommendation(user_input: UserInput, db: Session = Depends(get_db)):
+    # Extract location details from user input
     location = user_input.location
 
     # Fetch UV Index from Ambee's Weather API
@@ -80,12 +80,8 @@ async def get_sun_protection_recommendation(user_input: UserInput):
         'Content-type': 'application/json'
     }
 
-    print(url)
-    print(headers)
     async with httpx.AsyncClient() as client:
         response = await client.get(url, headers=headers)
-
-
 
     if response.status_code == 200:
         data = response.json()
@@ -96,7 +92,15 @@ async def get_sun_protection_recommendation(user_input: UserInput):
         raise HTTPException(status_code=response.status_code, detail="Error fetching UV Index data")
 
     # Match user input and UV Index to a recommendation
-    recommendation = get_recommendation(uv_index, user_input.skin_tone, user_input.skin_type, user_input.activity_level)
+    recommendation = get_recommendation(
+        db,
+        uv_index=uv_index,
+        skin_tone=user_input.skin_tone,
+        skin_type=user_input.skin_type,
+        activity_level=user_input.activity_level
+    )
+    print
+    print("Recommendation",recommendation)
     if not recommendation:
         raise HTTPException(status_code=404, detail="No suitable sun protection recommendation found")
 
