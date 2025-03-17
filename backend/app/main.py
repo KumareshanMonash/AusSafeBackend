@@ -6,8 +6,17 @@ from . import schemas, crud
 from .database import SessionLocal
 from .models.SunProtectionModel import SunProtectionRecommendation
 from .models.UserInputModel import UserInput
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Dependency to get the database session
 def get_db():
