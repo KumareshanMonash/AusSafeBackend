@@ -79,13 +79,15 @@ class UVProtectionRecommendationSchema(BaseModel):
     model_config = ConfigDict(from_attributes=True)
    
   
-class LocationModal(BaseModel):
-    latitude: float
-    longitude: float
+# class LocationModal(BaseModel):
+#     id: int
+#     postcode: int
+#     latitude: float
+#     longitude: float
 
 
 class UserInput(BaseModel):
-    locationId: int
+    location: Location
     skin_tone: str
     skin_type: str
     activity_level: str
