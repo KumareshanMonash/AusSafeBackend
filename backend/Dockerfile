@@ -2,16 +2,17 @@
 FROM python:3.10
 
 # Set the working directory
-WORKDIR /backend/app
+WORKDIR /app
 
-# Copy project files
-COPY . /backend/app
+# Copy the current directory contents into the container
+COPY . /app
 
 # Install dependencies
+RUN pip install --no-cache-dir --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose port 8080 (required by Cloud Run)
+# Expose port 8000
 EXPOSE 8000
 
-# Run FastAPI using Uvicorn
-CMD ["gunicorn", "-w", "4", "-k", "uvicorn.workers.UvicornWorker", "main:app", "--bind", "0.0.0.0:8000"]
+# Command to run FastAPI using Uvicorn
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
