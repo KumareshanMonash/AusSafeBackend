@@ -1,5 +1,4 @@
 from fastapi import FastAPI, Query, HTTPException, Depends, Request
-from fastapi.responses import RedirectResponse
 from typing import List, Optional
 import httpx
 from sqlalchemy.orm import Session
@@ -11,14 +10,6 @@ from .models.UserInputModel import UserInput
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
-
-@app.middleware("http")
-async def force_https_redirect(request: Request, call_next):
-    """ Redirect HTTP requests to HTTPS """
-    if request.url.scheme == "http":
-        https_url = request.url.replace(scheme="https")
-        return RedirectResponse(url=str(https_url))
-    return await call_next(request)
 
 app.add_middleware(
     CORSMiddleware,
