@@ -36,7 +36,7 @@ def get_recommendation(db: Session, uv_index: int, skin_tone: str, skin_type: st
         model.UVProtectionRecommendation.type_of_clothing,
         model.UVProtectionRecommendation.amount_of_sunscreen,
         model.UVProtectionRecommendation.type_of_sunscreen,
-        cast(model.UVProtectionRecommendation.reapply_frequency, Integer),
+        model.UVProtectionRecommendation.reapply_frequency,
         model.UVProtectionRecommendation.max_sun_exposure_time
     ).filter(
         and_(
@@ -53,7 +53,7 @@ def get_recommendation(db: Session, uv_index: int, skin_tone: str, skin_type: st
             type_of_clothing=result.type_of_clothing,
             amount_of_sunscreen=result.amount_of_sunscreen,
             type_of_sunscreen=result.type_of_sunscreen,
-            reapply_frequency=int(result.reapply_frequency),
+            reapply_frequency=result.reapply_frequency,
             max_sun_exposure_time=result.max_sun_exposure_time
         )
     return None
