@@ -73,7 +73,7 @@ class UVProtectionRecommendationSchema(BaseModel):
     type_of_clothing: str
     amount_of_sunscreen: str
     type_of_sunscreen: str
-    reapply_frequency: str
+    reapply_frequency: int
     max_sun_exposure_time: str
 
     model_config = ConfigDict(from_attributes=True)
