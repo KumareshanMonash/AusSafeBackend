@@ -106,5 +106,5 @@ class UVProtectionRecommendation(Base):
     type_of_clothing = Column(Text, nullable=False)
     amount_of_sunscreen = Column(Text, nullable=False)
     type_of_sunscreen = Column(Text, nullable=False)
-    reapply_frequency = Column(Integer, nullable=False)
+    reapply_frequency = Column(Text, nullable=False)
     max_sun_exposure_time = Column(Text, nullable=False)
