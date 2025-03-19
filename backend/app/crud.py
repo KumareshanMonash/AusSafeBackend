@@ -2,7 +2,7 @@
 from typing import Optional, List
 from sqlalchemy.orm import Session
 from . import model
-from sqlalchemy import func, or_, cast, String, and_
+from sqlalchemy import func, or_, cast, String, and_, Integer
 
 from .schemas import SunProtectionRecommendation
 
